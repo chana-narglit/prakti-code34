@@ -4,19 +4,14 @@ using ToDoDbContext = TodoApi.ToDoDbContext;
 using Task = TodoApi.Task;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// טוען את מחרוזת החיבור מתוך appsettings.json
 var connectionString = builder.Configuration.GetConnectionString("mytodod");
-
-// קונפיגורציה של DB עם MySQL
 builder.Services.AddDbContext<ToDoDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
 );
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAllOrigins",
-        builder => builder.AllowAnyOrigin()
+        Policy => Policy.AllowAnyOrigin()
                           .AllowAnyMethod()
                           .AllowAnyHeader());
 });
@@ -26,11 +21,9 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// הפעלת Swagger
 app.UseSwagger();
 app.UseSwaggerUI();
 
-// הפעלת CORS
 app.UseCors("AllowAllOrigins");
 
 app.MapGet("/task", async (ToDoDbContext db) =>

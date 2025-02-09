@@ -18,11 +18,8 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
     app.UseSwagger();
     app.UseSwaggerUI();
-}
 
 app.UseCors("AllowAllOrigins");
 
@@ -57,5 +54,7 @@ app.MapDelete("/task/{id}", async (ToDoDbContext db, int id) =>
 
     return Results.Ok();
 });
+
+app.MapGet("/",()=>"TodoApi is running!*")
 
 app.Run();

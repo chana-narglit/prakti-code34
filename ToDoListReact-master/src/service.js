@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiUrl =  process.env.API-NAME;
+const apiUrl =  "https://prakti-code34server.onrender.com/task";
 axios.defaults.baseURL = apiUrl;
 
 axios.interceptors.response.use(

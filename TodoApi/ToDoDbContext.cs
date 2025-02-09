@@ -18,16 +18,16 @@ public partial class ToDoDbContext : DbContext
 
     public virtual DbSet<Task> Tasks { get; set; }
 
-    // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //     => optionsBuilder.UseMySql("name=mytodod", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.41-mysql"));
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        if (!optionsBuilder.IsConfigured)
-        {
-            optionsBuilder.UseMySql("Server=localhost;Database=mytodod;User=root;Password=yourpassword;Port=3306;",
-                Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.41-mysql"));
-        }
-    }
+        => optionsBuilder.UseMySql("name=mytodod", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.41-mysql"));
+    // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    // {
+    //     if (!optionsBuilder.IsConfigured)
+    //     {
+    //         optionsBuilder.UseMySql("Server=localhost;Database=mytodod;User=root;Password=yourpassword;Port=3306;",
+    //             Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.41-mysql"));
+    //     }
+    // }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -39,7 +39,7 @@ public partial class ToDoDbContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("tasks");
+            entity.ToTable("task");
 
             entity.Property(e => e.Name).HasMaxLength(100);
         });
